@@ -70,10 +70,12 @@ int partition(int arr[], int left, int right)
     return j;
 };
 
-void quickSortHelper(int arr[], int left, int right){
-    if(left < right) {
+void quickSortHelper(int arr[], int left, int right)
+{
+    if (left < right)
+    {
         int p = partition(arr, left, right);
-        quickSortHelper(arr, left, p-1);
+        quickSortHelper(arr, left, p - 1);
         quickSortHelper(arr, p + 1, right);
     }
 }
@@ -97,6 +99,28 @@ float QuickSort(int arr[], int N)
     for (int i = 0; i < N; i++)
         cout << ar[i] << " ";
     cout << endl;
+}
+
+int KthElementUsingQuickSort(int arr[], int N)
+{
+    if (N <= 0)
+        return -1;
+
+    int pivot = arr[0];
+    int i = 0;
+
+    for (int j = 1; j < N; j++)
+    {
+        if (arr[j] < pivot)
+        {
+            i++;
+            swap(arr[i], arr[j]);
+        }
+    }
+
+    swap(arr[0], arr[i]);
+
+    return i;
 }
 
 float MergeSort(int ar[], int N)
@@ -149,7 +173,9 @@ int main()
     }
 
     // BubbleSort(ar, N);
-    QuickSort(ar, N); ///
+    // QuickSort(ar, N);
+    int pos = KthElementUsingQuickSort(ar, N);
+    cerr << "Pivot final position: " << pos << endl;
     //    MergeSort(ar,N );
     //    HeapSort(ar,N );
     //    InsertionSort(ar,N );
