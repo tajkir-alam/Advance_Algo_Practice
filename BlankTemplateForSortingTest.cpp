@@ -43,15 +43,51 @@ float BubbleSort(int ar[], int N)
 };
 
 int br[100000];
-float QuickSort(int ar[], int N)
+
+int partition(int arr[], int left, int right)
+{
+    int pivot = arr[left];
+    int i = left + 1;
+    int j = right;
+
+    while (i <= j)
+    {
+        while (i <= right && arr[i] <= pivot)
+        {
+            i++;
+        }
+        while (j > left && arr[j] > pivot)
+        {
+            j--;
+        }
+
+        if (i < j)
+        {
+            swap(arr[i], arr[j]);
+        }
+    }
+    swap(arr[left], arr[j]);
+    return j;
+};
+
+void quickSortHelper(int arr[], int left, int right){
+    if(left < right) {
+        int p = partition(arr, left, right);
+        quickSortHelper(arr, left, p-1);
+        quickSortHelper(arr, p + 1, right);
+    }
+}
+
+float QuickSort(int arr[], int N)
 {
     float time = 0;
     clock_t start = clock();
 
     /// Coding Start
+    quickSortHelper(arr, 0, N - 1);
     /// Finish your code within start to end
 
-    sort(ar, ar + N);
+    // sort(ar, ar + N);
     /// Coding End
 
     clock_t total = clock() - start;
@@ -112,8 +148,8 @@ int main()
         scanf("%d", &ar[i]);
     }
 
-    BubbleSort(ar, N);
-    // QuickSort(ar,N ); ///
+    // BubbleSort(ar, N);
+    QuickSort(ar, N); ///
     //    MergeSort(ar,N );
     //    HeapSort(ar,N );
     //    InsertionSort(ar,N );
