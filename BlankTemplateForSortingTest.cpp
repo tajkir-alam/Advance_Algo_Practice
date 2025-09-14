@@ -147,7 +147,66 @@ float HeapSort(int ar[], int N)
     clock_t start = clock();
 
     /// Coding Start
+    for (int start = N / 2 - 1; start >= 0; --start)
+    {
+        int root = start;
+        while (true)
+        {
+            int left = 2 * root + 1;
+            int right = 2 * root + 2;
+            int largest = root;
 
+            if (left < N && ar[left] > ar[largest])
+            {
+                largest = left;
+            }
+            if (right < N && ar[right] > ar[largest])
+            {
+                largest = right;
+            }
+
+            if (largest == root)
+            {
+                break;
+            }
+
+            int tmp = ar[root];
+            ar[root] = ar[largest];
+            ar[largest] = tmp;
+            root = largest;
+        }
+    }
+
+    for (int end = N - 1; end > 0; --end)
+    {
+        int tmp = ar[0];
+        ar[0] = ar[end];
+        ar[end] = tmp;
+
+        int root = 0;
+        while (true)
+        {
+            int left = 2 * root + 1;
+            int right = 2 * root + 2;
+            int largest = root;
+
+            if(left < end && ar[left] > ar[largest]) {
+                largest = left;
+            }
+            if(right < end && ar[right] > ar[largest]) {
+                largest = right;
+            }
+
+            if(largest == root) {
+                break;
+            }
+
+            int tmp2 = ar[root];
+            ar[root] = ar[largest];
+            ar[largest] = tmp2;
+            root = largest;
+        }
+    }
     /// Coding End
 
     clock_t total = clock() - start;
@@ -174,10 +233,10 @@ int main()
 
     // BubbleSort(ar, N);
     // QuickSort(ar, N);
-    int pos = KthElementUsingQuickSort(ar, N);
-    cerr << "Pivot final position: " << pos << endl;
+    // int pos = KthElementUsingQuickSort(ar, N);
+    // cerr << "Pivot final position: " << pos << endl;
     //    MergeSort(ar,N );
-    //    HeapSort(ar,N );
+       HeapSort(ar,N );
     //    InsertionSort(ar,N );
 
     ///....
