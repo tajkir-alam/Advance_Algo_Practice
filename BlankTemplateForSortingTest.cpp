@@ -190,14 +190,17 @@ float HeapSort(int ar[], int N)
             int right = 2 * root + 2;
             int largest = root;
 
-            if(left < end && ar[left] > ar[largest]) {
+            if (left < end && ar[left] > ar[largest])
+            {
                 largest = left;
             }
-            if(right < end && ar[right] > ar[largest]) {
+            if (right < end && ar[right] > ar[largest])
+            {
                 largest = right;
             }
 
-            if(largest == root) {
+            if (largest == root)
+            {
                 break;
             }
 
@@ -213,6 +216,34 @@ float HeapSort(int ar[], int N)
     //     time = start - ed;
     cerr << setprecision(10) << fixed;
     cerr << "Total Time Taken in Heap Sort is " << float(total) / 1000.0 << endl;
+    for (int i = 0; i < N; i++)
+        cout << ar[i] << " ";
+    cout << endl;
+}
+
+float InsertionSort(int ar[], int N)
+{
+    float time = 0;
+    clock_t start = clock();
+
+    /// Coding Start
+    for (int i = 1; i < N; i++)
+    {
+        int temp = ar[i];
+        int j = i - 1;
+
+        while(j >= 0 && ar[j] > temp) {
+            ar[j + 1] = ar[j];
+            j--;
+        }
+        ar[j + 1] = temp;
+    }
+    /// Coding End
+
+    clock_t total = clock() - start;
+    //     time = start - ed;
+    cerr << setprecision(10) << fixed;
+    cerr << "Total Time Taken in Insertion Sort is " << float(total) / 1000.0 << endl;
     for (int i = 0; i < N; i++)
         cout << ar[i] << " ";
     cout << endl;
@@ -236,8 +267,8 @@ int main()
     // int pos = KthElementUsingQuickSort(ar, N);
     // cerr << "Pivot final position: " << pos << endl;
     //    MergeSort(ar,N );
-       HeapSort(ar,N );
-    //    InsertionSort(ar,N );
+    //    HeapSort(ar,N );
+    InsertionSort(ar, N);
 
     ///....
 
