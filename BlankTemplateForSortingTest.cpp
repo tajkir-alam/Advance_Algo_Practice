@@ -232,7 +232,8 @@ float InsertionSort(int ar[], int N)
         int temp = ar[i];
         int j = i - 1;
 
-        while(j >= 0 && ar[j] > temp) {
+        while (j >= 0 && ar[j] > temp)
+        {
             ar[j + 1] = ar[j];
             j--;
         }
@@ -244,6 +245,40 @@ float InsertionSort(int ar[], int N)
     //     time = start - ed;
     cerr << setprecision(10) << fixed;
     cerr << "Total Time Taken in Insertion Sort is " << float(total) / 1000.0 << endl;
+    for (int i = 0; i < N; i++)
+        cout << ar[i] << " ";
+    cout << endl;
+}
+
+float SelectionSort(int ar[], int N)
+{
+    float time = 0;
+    clock_t start = clock();
+
+    /// Coding Start
+    for (int i = 0; i < N - 1; i++)
+    {
+        int min = i;
+        for (int j = i + 1; j < N; j++)
+        {
+            if (ar[j] < ar[min])
+            {
+                min = j;
+            }
+        }
+        if (min != i)
+        {
+            int temp = ar[i];
+            ar[i] = ar[min];
+            ar[min] = temp;
+        }
+    }
+    /// Coding End
+
+    clock_t total = clock() - start;
+    //     time = start - ed;
+    cerr << setprecision(10) << fixed;
+    cerr << "Total Time Taken in Selection Sort is " << float(total) / 1000.0 << endl;
     for (int i = 0; i < N; i++)
         cout << ar[i] << " ";
     cout << endl;
@@ -268,7 +303,8 @@ int main()
     // cerr << "Pivot final position: " << pos << endl;
     //    MergeSort(ar,N );
     //    HeapSort(ar,N );
-    InsertionSort(ar, N);
+    // InsertionSort(ar, N);
+    SelectionSort(ar, N);
 
     ///....
 
