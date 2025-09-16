@@ -123,13 +123,71 @@ int KthElementUsingQuickSort(int arr[], int N)
     return i;
 }
 
+void merge(int ar[], int left, int mid, int right)
+{
+    int n1 = mid - left + 1;
+    int n2 = right - mid;
+
+    int L[n1], R[n2];
+
+    for (int i = 0; i < n1; i++)
+    {
+        L[i] = ar[left + i];
+    }
+    for (int j = 0; j < n2; j++)
+    {
+        R[j] = ar[mid + 1 + j];
+    }
+
+    int i = 0, j = 0, k = left;
+    while (i < n1 && j < n2)
+    {
+        if (L[i] <= R[j])
+        {
+            ar[k] = L[i];
+            i++;
+        }
+        else
+        {
+            ar[k] = R[j];
+            j++;
+        }
+        k++;
+    }
+
+    while (i < n1)
+    {
+        ar[k] = L[i];
+        i++;
+        k++;
+    }
+
+    while (j < n2)
+    {
+        ar[k] = R[j];
+        j++;
+        k++;
+    }
+}
+
+void mergeSortHelper(int ar[], int left, int right)
+{
+    if (left < right)
+    {
+        int mid = left + (right - left) / 2;
+        mergeSortHelper(ar, left, mid);
+        mergeSortHelper(ar, mid + 1, right);
+        merge(ar, left, mid, right);
+    }
+}
+
 float MergeSort(int ar[], int N)
 {
     float time = 0;
     clock_t start = clock();
 
     /// Coding Start
-
+    mergeSortHelper(ar, 0, N - 1);
     /// Coding End
 
     clock_t total = clock() - start;
@@ -301,10 +359,10 @@ int main()
     // QuickSort(ar, N);
     // int pos = KthElementUsingQuickSort(ar, N);
     // cerr << "Pivot final position: " << pos << endl;
-    //    MergeSort(ar,N );
+    MergeSort(ar, N);
     //    HeapSort(ar,N );
     // InsertionSort(ar, N);
-    SelectionSort(ar, N);
+    // SelectionSort(ar, N);
 
     ///....
 
